@@ -2,7 +2,7 @@
  * Proyecto: Juego de la vida.
  * Maneja los errores de las clases del modelo.
  *  @since: prototipo2.1
- *  @source: ModeloException.java 
+ *  @source: UsrException.java 
  * @version: 2.1 - 2017.04.5
  *  @author: ajp
  */
