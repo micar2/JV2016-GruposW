@@ -4,8 +4,8 @@
  * Se hace validación de datos pero no se gestionan todavía los errores correspondientes.
  * @since: prototipo1.2
  * @source: ClaveAcceso.java 
- * @version: 2.0 - 2017.03.14
- * @author: ajp
+ * @version: 2.1 - 2017.04.27
+ * @author: RML
  */
 
 package modelo;
@@ -18,32 +18,34 @@ public class ClaveAcceso implements Serializable, Cloneable {
 	private static final long serialVersionUID = 1L;
 	private String texto;
 
-	public ClaveAcceso(String texto) {
+	public ClaveAcceso(String texto) throws ModeloException {
 		setTexto(texto);
 	}
 
-	public ClaveAcceso()  {
+	public ClaveAcceso() throws ModeloException  {
 		this("Miau#0");
 	}
 
-	public ClaveAcceso(ClaveAcceso claveAcceso) {
+	public ClaveAcceso(ClaveAcceso claveAcceso) throws ModeloException {
 		this(claveAcceso.texto);
 	}
 
 	public String getTexto() {
 		return texto;
 	}
-
-	public void setTexto(String texto)  {
-		assert ClaveAccesoValida(texto);
+// problema / solucionado
+	public void setTexto(String texto) throws ModeloException  {
+		if (ClaveAccesoValida(texto)){
 		this.texto = Criptografia.cesar(texto);
-	}
-
-	private boolean ClaveAccesoValida(String texto) {
-		if (texto != null) {
-			return	texto.matches(Formato.PATRON_CONTRASEÑA);
+		return;
 		}
-		return false;
+			throw new ModeloException("El formato de la contraseña no es valido..");
+		
+	}
+// problema / solucionado
+	private boolean ClaveAccesoValida(String texto) {
+		assert texto != null ;
+			return	texto.matches(Formato.PATRON_CONTRASEÑA);
 	}
 
 	@Override
@@ -92,7 +94,14 @@ public class ClaveAcceso implements Serializable, Cloneable {
 	@Override
 	public Object clone() {
 		// Utiliza el constructor copia.
-		return new ClaveAcceso(this);
+		Object clon = null ;
+		try {
+			clon =  new ClaveAcceso(this);
+		} 
+		catch (ModeloException e) {
+			e.printStackTrace();
+		}
+		return clon ;
 	}
 
 } //class

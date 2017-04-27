@@ -3,8 +3,8 @@
  * Organiza aspectos de gestión de la simulación según el modelo 2.
  * @since: prototipo2.0
  * @source: Simulacion.java 
- * @version: 2.0 - 2017.03.20
- * @author: ajp
+ * @version: 2.1 - 2017.04.27
+ * @author: RML
  */
 
 package modelo;
@@ -42,9 +42,10 @@ public class Simulacion implements Serializable, Cloneable {
 	 * Constructor por defecto.
 	 * Establece el valor inicial, por defecto, de cada uno de los atributos.
 	 * Llama al constructor convencional de la propia clase.
+	 * @throws ModeloException 
 	 * @throws UtilException  
 	 */
-	public Simulacion() {
+	public Simulacion() throws ModeloException {
 		this(new Usuario(), new Fecha(), new Mundo(), EstadoSimulacion.PREPARADA);
 	}
 
