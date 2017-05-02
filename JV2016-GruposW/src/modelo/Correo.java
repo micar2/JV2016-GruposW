@@ -4,34 +4,38 @@
  * Se hace validación de datos pero no se gestionan todavía los errores correspondientes. 
  * @since: prototipo1.2
  * @source: Correo.java 
- * @version: 2.0 - 2017.03.20
- * @author: ajp
+ * @version: 2.2 - 2017.05.02
+ * @author: jomahym,judcsaura,johndayne
  */
 
 package modelo;
 
 import java.io.Serializable;
 import util.Formato;
+import modelo.ModeloException;
 
 public class Correo implements Serializable, Cloneable {
 	private static final long serialVersionUID = 1L;
 	private String texto;
 	
-	public Correo(String texto) {
+	public Correo(String texto) throws ModeloException {
 		setTexto(texto);
 	}
 
-	public Correo() {
+	public Correo() throws ModeloException {
 		this("correo@correo.com");
 	}
 
-	public Correo(Correo correo) {
+	public Correo(Correo correo) throws ModeloException {
 		this(correo.texto);
 	}
 	
-	public void setTexto(String texto) {
-		assert (direccionValida(texto));
+	public void setTexto(String texto) throws ModeloException {
+		if (direccionValida(texto)){
 		this.texto = texto;
+		return;
+		}
+	throw new ModeloException ("El correo:"+ texto + "no es v�lido");
 	}
 	
 	/**
@@ -107,7 +111,10 @@ public class Correo implements Serializable, Cloneable {
 	*/
 	@Override
 	public Object clone() {
-		// Utiliza el constructor copia.
-		return new Correo(this);
+		Object clon = null;
+		try {
+			clon = new Correo(this);
+		} catch (ModeloException e) {}
+			return clon;
 	}
-} // class
+} //class
