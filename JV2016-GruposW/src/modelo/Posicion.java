@@ -4,7 +4,7 @@
  * @since: prototipo2.0
  * @source: Posicion.java 
  * @version: 2.0 - 2017.03.11
- * @author: ajp
+ * @author: ARA
  */
 
 package modelo;
@@ -24,7 +24,7 @@ public class Posicion implements Cloneable, Serializable {
 	 * @param x
 	 * @param y
 	 */
-	public Posicion(int x, int y) {
+	public Posicion(int x, int y) throws ModeloException {
 		setX(x);
 		setY(y);
 	}
@@ -34,7 +34,7 @@ public class Posicion implements Cloneable, Serializable {
 	 * Establece el valor inicial, por defecto, de cada uno de los atributos.
 	 * Llama al constructor convencional de la propia clase.
 	 */
-	public Posicion() {
+	public Posicion() throws ModeloException {
 		this(0, 0);
 	}
 
@@ -44,7 +44,7 @@ public class Posicion implements Cloneable, Serializable {
 	 * los valores obtenidos de un objeto de su misma clase.
 	 * @param p
 	 */
-	public Posicion(Posicion p) {
+	public Posicion(Posicion p) throws ModeloException {
 		this(p.x, p.y);
 	}
 
@@ -65,17 +65,30 @@ public class Posicion implements Cloneable, Serializable {
 	/**
 	 * @param x the x to set
 	 */
-	public void setX(int x) {
+	public void setX(int x) throws ModeloException {
+		if(posicionValida(x)){
 		this.x = x;
+		}
+		throw new ModeloException("No se permiten posiciones negativas");
 	}
 
 	/**
 	 * @param y the y to set
 	 */
-	public void setY(int y) {
+	public void setY(int y) throws ModeloException {
+		if(posicionValida(y)){
 		this.y = y;
+		return;
+		}
+		throw new ModeloException("No se permiten posiciones negativas");
 	}
 
+	private boolean posicionValida(int posicion){
+		if(posicion>=0){
+			return true;
+		}
+		return false;
+	}
 	@Override
 	public String toString() {
 		return "Posicion [x=" + x + ", y=" + y + "]";
@@ -125,8 +138,11 @@ public class Posicion implements Cloneable, Serializable {
 	@Override
 	public Object clone() {
 		// Utiliza el constructor copia.
-		return new Posicion(this);
+		Object clon = null;
+		try {
+			clon = new Posicion(this);
+		} catch (ModeloException e) { }
+		return clon;
 	}
 
 } //class
-
