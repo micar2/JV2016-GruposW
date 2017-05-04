@@ -3,7 +3,7 @@
  *  Se hace validación de datos pero no se gestionan todavía los errores correspondientes.
  *  @since: prototipo1.2
  *  @source: DireccionPostal.java 
- *  @version: 2.1 - 2017.02.20
+ *  @version: 2.0 - 2017.02.20
  *  @author: ajp
  */
 
@@ -11,7 +11,6 @@ package modelo;
 
 import java.io.Serializable;
 
-import accesoDatos.DatosException;
 import util.Formato;
 
 public class DireccionPostal implements Serializable, Cloneable {
@@ -21,19 +20,18 @@ public class DireccionPostal implements Serializable, Cloneable {
 	private String cp;
 	private String poblacion;
 
-	public DireccionPostal(String calle, String numero, String cp, String poblacion)
-			throws ModeloException, DatosException {
+	public DireccionPostal(String calle, String numero, String cp, String poblacion) throws ModeloException {
 		setCalle(calle);
 		setNumero(numero);
 		setCP(cp);
 		setPoblacion(poblacion);
 	}
 
-	public DireccionPostal() throws ModeloException, DatosException {
+	public DireccionPostal() throws ModeloException {
 		this("Calle", "00", "99999", "Población");
 	}
 
-	public DireccionPostal(DireccionPostal direccion) throws ModeloException, DatosException {
+	public DireccionPostal(DireccionPostal direccion) throws ModeloException {
 		this(direccion.calle, direccion.numero, direccion.cp, direccion.poblacion);
 	}
 
@@ -123,10 +121,6 @@ public class DireccionPostal implements Serializable, Cloneable {
 		// --Pendiente--
 		return true;
 	}
-
-	// public void setPoblacion(String poblacion) {
-	// assert poblacionValida(poblacion);
-	// this.poblacion = poblacion;
 
 	public void setPoblacion(String poblacion) throws ModeloException {
 		if (poblacionValida(poblacion)) {
@@ -232,7 +226,7 @@ public class DireccionPostal implements Serializable, Cloneable {
 	/**
 	 * Genera un clon del propio objeto realizando una copia profunda.
 	 * 
-	 * @return el objeto clonado.
+	 * @return
 	 */
 	@Override
 	public Object clone() {
@@ -240,9 +234,6 @@ public class DireccionPostal implements Serializable, Cloneable {
 		try {
 			return new DireccionPostal(this);
 		} catch (ModeloException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (DatosException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
