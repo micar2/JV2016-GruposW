@@ -3,7 +3,7 @@
  *  Se hace validación de datos pero no se gestionan todavía los errores correspondientes.
  *  @since: prototipo1.2
  *  @source: DireccionPostal.java 
- *  @version: 2.0 - 2017.02.20
+ *  @version: 2.1 - 2017.02.20
  *  @author: ajp
  */
 
